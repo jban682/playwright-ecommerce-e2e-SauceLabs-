@@ -1,18 +1,24 @@
 import { expect, test } from '@playwright/test'
 import landingPage from './pages/login.pages'
 import E2ETest from './pages/E2E-Test.pages'
+import inventory from './pages/cart.page'
+import checkOutPage1 from './pages/checkOutPage1.page'
 
 
 test.describe('5 Core E2E Test Scenario', () => {
 
     let loginPageLocator: landingPage
     let e2eTestLocator: E2ETest
+    let productList: inventory
+    let clientInfo: checkOutPage1
 
     test.beforeEach('Accessing the website', async ({ page }) => {
         await page.goto('https://www.saucedemo.com/')
 
         loginPageLocator = new landingPage(page)
         e2eTestLocator = new E2ETest(page)
+        productList = new inventory(page)
+        clientInfo = new checkOutPage1(page)
     })
 
     test('Scenario 1: Successful Order Placement (Critical User Flow)', async ({ page }) => {
@@ -30,18 +36,18 @@ test.describe('5 Core E2E Test Scenario', () => {
         //- Cart icon badge shows '2'.
         await expect(e2eTestLocator.getCartBadge).toHaveText('2')
         //Navigate to the Shopping Cart and click 'Checkout'.
-        await e2eTestLocator.getShoppingCart.click()
-        await expect(e2eTestLocator.getShoppingCartTitle).toHaveText('Your Cart')
+        await e2eTestLocator.getLinkShoppingCart.click()
+        await expect(productList.getTitleShoppingCart).toHaveText('Your Cart')
 
-        await e2eTestLocator.getCheckOutButton.click()
+        await productList.getButtonCheckOut.click()
         //- Redirected to the Checkout Step 1 Page.
-        await expect(e2eTestLocator.getCheckoutPage1Title).toHaveText('Checkout: Your Information')
+        await expect(clientInfo.getTitleCheckoutPage1).toHaveText('Checkout: Your Information')
         //Fill out all required personal information (First Name, Last Name, Zip Code) and click 'Continue'.
-        await e2eTestLocator.getFirstNameClient.fill('Jean')
-        await e2eTestLocator.getLastNameClient.fill('Grey')
-        await e2eTestLocator.getZipCodeClient.fill('123456')
+        await clientInfo.getFirstName.fill('Jean')
+        await clientInfo.getLastName.fill('Grey')
+        await clientInfo.getZipCode.fill('123456')
 
-        await e2eTestLocator.getCheckoutContinueButton.click()
+        await clientInfo.getButtonCheckoutContinue.click()
         //- Redirected to the Checkout Step 2 (Overview) Page.
         await expect(e2eTestLocator.getCheckoutOverviewPageTitle).toHaveText('Checkout: Overview')
         //Click the 'Finish' button.
