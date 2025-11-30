@@ -8,8 +8,8 @@ export default class E2ETest {
     get2ndAddToCartButton: Locator
     getCartBadge: Locator
     getLinkShoppingCart: Locator
-    getCheckoutOverviewPageTitle: Locator
-    getCheckoutFinishButton: Locator
+    //getCheckoutOverviewPageTitle: Locator
+    //getCheckoutFinishButton: Locator
     getCheckoutCompletePagetitle: Locator
     getCheckoutSuccessMessage: Locator
     getCheckoutCompleteText: Locator
@@ -32,8 +32,8 @@ export default class E2ETest {
         //Checkout page1
         
         //Checkout Overview
-        this.getCheckoutOverviewPageTitle = page.getByTestId('title')
-        this.getCheckoutFinishButton = page.getByTestId('finish')
+       // this.getCheckoutOverviewPageTitle = page.getByTestId('title')
+        //this.getCheckoutFinishButton = page.getByTestId('finish')
 
 
         //checkout complete
